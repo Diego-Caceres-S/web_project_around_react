@@ -4,7 +4,7 @@ import NewCard from "./components/form/NerwCard/NewCard";
 import EditAvatar from "./components/form/EditAvatar/EditAvatar";
 import Popup from "./components/Popup/Popup";
 import Card from "./components/Card/Card";
-import CurrentUserContext from "../../context/CurrentUserContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Main({
   cards,
