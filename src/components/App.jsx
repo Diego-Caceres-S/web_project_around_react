@@ -3,7 +3,7 @@ import Footer from "./Footer/Footer";
 import Main from "./Main/Main";
 import Header from "./Header/Header";
 import { api } from "../utils/api";
-import CurrentUserContext from "../contexts/CurrentUserContext";
+import CurrentUserContext from "../contexts/CurrentUserContext.js";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
