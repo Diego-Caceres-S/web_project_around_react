@@ -1,10 +1,24 @@
-export default function NewCard() {
+import { useRef } from "react";
+
+export default function NewCard({ onAddPlaceSubmit }) {
+  const nameRef = useRef();
+  const linkRef = useRef();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onAddPlaceSubmit({
+      name: nameRef.current.value,
+      link: linkRef.current.value,
+    });
+  }
+
   return (
     <form
       className="popup__form"
       name="card-form"
       id="new-card-form"
       noValidate
+      onSubmit={handleSubmit}
     >
       <input
         className="popup__input popup__input_type_card-name"
@@ -15,6 +29,7 @@ export default function NewCard() {
         placeholder="Title"
         required
         type="text"
+        ref={nameRef}
       />
       <span className="popup__error" id="card-name-error"></span>
 
@@ -25,6 +40,7 @@ export default function NewCard() {
         placeholder="Image link"
         required
         type="url"
+        ref={linkRef}
       />
       <span className="popup__error" id="card-link-error"></span>
 
