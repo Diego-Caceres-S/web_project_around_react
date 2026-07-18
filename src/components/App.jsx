@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Footer from "./Footer/Footer";
 import Main from "./Main/Main";
 import Header from "./Header/Header";
-import { api } from "../utils/api";
+import { api } from "../utils/Api";
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
 
 function App() {
@@ -20,7 +20,13 @@ function App() {
   useEffect(() => {
     api
       .getInitialCards()
-      .then((data) => setCards(data))
+      .then((data) => {
+        // AJUSTA según la estructura real que confirmes en consola.
+        const cardsArray = Array.isArray(data)
+          ? data
+          : data.data || data.cards || [];
+        setCards(cardsArray);
+      })
       .catch((error) => console.error(error));
   }, []);
 
@@ -72,6 +78,7 @@ function App() {
       .deleteCard(card._id)
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== card._id));
+        handleClosePopup(); // se cierra el popup de confirmación tras borrar
       })
       .catch((error) => console.error(error));
   }

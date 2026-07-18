@@ -1,14 +1,13 @@
-import { useRef } from "react";
+import { useFormAndValidation } from "../../../../../hooks/useFormAndValidation.js";
 
 export default function NewCard({ onAddPlaceSubmit }) {
-  const nameRef = useRef();
-  const linkRef = useRef();
+  const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
     onAddPlaceSubmit({
-      name: nameRef.current.value,
-      link: linkRef.current.value,
+      name: values["card-name"],
+      link: values.link,
     });
   }
 
@@ -23,15 +22,18 @@ export default function NewCard({ onAddPlaceSubmit }) {
       <input
         className="popup__input popup__input_type_card-name"
         id="card-name"
-        maxLength="30"
-        minLength="1"
+        maxLength={30}
+        minLength={1}
         name="card-name"
         placeholder="Title"
         required
         type="text"
-        ref={nameRef}
+        value={values["card-name"] || ""}
+        onChange={handleChange}
       />
-      <span className="popup__error" id="card-name-error"></span>
+      <span className="popup__error" id="card-name-error">
+        {errors["card-name"]}
+      </span>
 
       <input
         className="popup__input popup__input_type_url"
@@ -40,11 +42,18 @@ export default function NewCard({ onAddPlaceSubmit }) {
         placeholder="Image link"
         required
         type="url"
-        ref={linkRef}
+        value={values.link || ""}
+        onChange={handleChange}
       />
-      <span className="popup__error" id="card-link-error"></span>
+      <span className="popup__error" id="card-link-error">
+        {errors.link}
+      </span>
 
-      <button className="button popup__button" type="submit">
+      <button
+        className="button popup__button"
+        type="submit"
+        disabled={!isValid}
+      >
         Guardar
       </button>
     </form>
