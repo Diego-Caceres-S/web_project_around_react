@@ -8,8 +8,12 @@ export default function Card(props) {
   const { name, link, isLiked } = card;
   const { currentUser } = useContext(CurrentUserContext);
 
-  // AJUSTA card.owner._id según cómo tu api.js normalice el dueño de la tarjeta
-  const isOwn = card.owner?._id === currentUser?._id;
+  const currentUserId = currentUser?._id ?? currentUser?.id;
+  const ownerId = card.owner?._id ?? card.owner?.id ?? card.owner;
+  const isOwn =
+    currentUserId != null &&
+    ownerId != null &&
+    String(ownerId) === String(currentUserId);
 
   const cardLikeButtonClassName = `card__like-button ${
     isLiked ? "card__like-button_is-active" : ""

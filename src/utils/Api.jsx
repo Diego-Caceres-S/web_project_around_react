@@ -34,6 +34,10 @@ class Api {
     }).then(this._checkResponde);
   }
 
+  setUserInfo(data) {
+    return this.updateUserInfo(data);
+  }
+
   addCard({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
@@ -74,6 +78,10 @@ class Api {
         avatar: avatarUrl,
       }),
     }).then(this._checkResponde);
+  }
+
+  setUserAvatar({ avatar }) {
+    return this.updateAvatar(avatar);
   }
 }
 
